@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    generate-ddl: false
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    password: ${PASSWORD}
+    url: ${URL}
+    username: ${USERNAME}
