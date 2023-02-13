@@ -27,14 +27,14 @@ public class User {
     private int game;
 
     @Builder
-    public User(String name, String image, String password, String accountID, int kPop, int pop, int jPop, int game) {
+    public User(String name, String image, String password, String accountID) {
         this.name = name;
         this.image = image;
         this.password = password;
         this.accountID = accountID;
-        this.game = game;
-        this.jPop = jPop;
-        this.kPop = kPop;
-        this.pop = pop;
+        this.game = 0;
+        this.jPop = 0;
+        this.kPop = 0;
+        this.pop = 0;
     }
 }
