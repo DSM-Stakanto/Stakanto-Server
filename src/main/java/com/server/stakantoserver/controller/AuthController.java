@@ -1,6 +1,8 @@
 package com.server.stakantoserver.controller;
 
+import com.server.stakantoserver.controller.dto.request.SignInRequest;
 import com.server.stakantoserver.controller.dto.request.SignUpRequest;
+import com.server.stakantoserver.controller.dto.response.TokenResponse;
 import com.server.stakantoserver.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,5 +20,10 @@ public class AuthController {
     @PostMapping("/sign-up")
     public void signUp(@RequestBody SignUpRequest signUpRequest) {
         authService.signUp(signUpRequest);
+    }
+
+    @PostMapping("/login")
+    public TokenResponse signIn(@RequestBody SignInRequest request) {
+        return authService.signIn(request);
     }
 }
