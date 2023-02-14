@@ -12,6 +12,10 @@ public class AuthService {
     private final UserRepository userRepository;
 
     public void signUp(SignUpRequest signUpRequest) {
+        if (userRepository.findByAccountID(signUpRequest.getAccountID())
+                .isPresent()) {
+            throw new RuntimeException("the account id is already in Database");
+        }
         userRepository.save(signUpRequest.toUser());
     }
 }
