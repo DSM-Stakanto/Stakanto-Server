@@ -2,6 +2,7 @@ package com.server.stakantoserver.controller.dto.request;
 
 import com.server.stakantoserver.entity.User;
 import lombok.Getter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 public class SignUpRequest {
@@ -14,12 +15,12 @@ public class SignUpRequest {
 
     private String accountID;
 
-    public User toUser() {
+    public User toUser(PasswordEncoder passwordEncoder) {
         return User.builder()
                 .accountID(this.accountID)
                 .image(this.image)
                 .name(this.name)
-                .password(this.password)
+                .password(passwordEncoder.encode(this.password))
                 .build();
     }
 }
