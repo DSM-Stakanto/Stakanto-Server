@@ -26,7 +26,7 @@ public class TokenFilter extends OncePerRequestFilter {
     }
     private String parseRequest(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        if (token.startsWith("Bearer")) {
+        if (token != null && token.startsWith("Bearer")) {
             return token.substring(7);
         }
         return null;
