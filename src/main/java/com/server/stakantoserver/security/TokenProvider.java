@@ -1,5 +1,9 @@
 package com.server.stakantoserver.security;
 
+import com.server.stakantoserver.entity.Refresh;
+import com.server.stakantoserver.entity.User;
+import com.server.stakantoserver.repository.RefreshRepository;
+import com.server.stakantoserver.repository.UserRepository;
 import com.server.stakantoserver.security.details.UserDetails;
 import com.server.stakantoserver.security.details.UserDetailsService;
 import io.jsonwebtoken.Claims;
@@ -29,6 +33,10 @@ public class TokenProvider {
 
     private final UserDetailsService userDetailsService;
 
+    private final RefreshRepository refreshRepository;
+
+    private final UserRepository userRepository;
+
     private byte[] encodingKey() {
         return Base64.getEncoder().encodeToString(key.getBytes(StandardCharsets.UTF_8)).getBytes();
     }
@@ -48,7 +56,14 @@ public class TokenProvider {
     }
 
     public String generateRefreshToken(String accountId) {
-        return generateToken(accountId, refreshExp);
+        String token = generateToken(accountId, refreshExp);
+        User user = userRepository.findByAccountID(accountId)
+                        .orElseThrow(()-> new RuntimeException("account doesn't find in database"));
+        refreshRepository.save(Refresh.builder()
+                        .refreshToken(token)
+                        .user(user)
+                .build());
+        return token;
     }
 
     private String generateToken(String accountId, Long expired) {
