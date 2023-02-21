@@ -37,4 +37,22 @@ public class User {
         this.kPop = 0;
         this.pop = 0;
     }
+
+    public User updateScore(String kind, int score) {
+        switch (kind) {
+            case "kPop":
+                this.kPop = score;
+                break;
+            case "pop":
+                this.pop = score;
+                break;
+            case "jPop":
+                this.jPop = score;
+                break;
+            case "game":
+                this.game = score;
+                break;
+        }
+        return this;
+    }
 }
