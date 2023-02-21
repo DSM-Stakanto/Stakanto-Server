@@ -9,11 +9,14 @@ import com.server.stakantoserver.repository.HintRepository;
 import com.server.stakantoserver.repository.MusicRepository;
 import com.server.stakantoserver.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -67,5 +70,23 @@ public class MainService {
                         .genre(request.getGenre())
                         .start_at(request.getStartAt())
                 .build());
+    }
+
+    public List<Music> returnMusicList(String genre) {
+        List<Music> list = musicRepository.findByGenre(genre);
+        List<Music> result = new ArrayList<>();
+        Random rand = new Random();
+        while (true) {
+            List<Music> rm = new ArrayList<>();
+            if (result.size() == 4) break; // result.size() == 20
+            for (Music music : list) {
+                if (rand.nextBoolean()) {
+                    result.add(music);
+                    rm.add(music);
+                }
+            }
+            list = list.stream().filter(l->!rm.contains(l)).collect(Collectors.toList());
+        }
+        return result;
     }
 }
