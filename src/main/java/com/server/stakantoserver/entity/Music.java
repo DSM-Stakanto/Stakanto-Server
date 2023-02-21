@@ -17,6 +17,7 @@ public class Music {
     private String code;
     private String name;
     private String answer;
+    private String genre;
     private int start_at;
 
     @OneToOne
@@ -24,11 +25,12 @@ public class Music {
     private Hint hint;
 
     @Builder
-    public Music(String code, String name, String answer, int start_at, Hint hint) {
+    public Music(String code, String name, String answer, int start_at, Hint hint, String genre) {
         this.answer = answer;
         this.code = code;
         this.name = name;
         this.start_at = start_at;
         this.hint = hint;
+        this.genre = genre;
     }
 }

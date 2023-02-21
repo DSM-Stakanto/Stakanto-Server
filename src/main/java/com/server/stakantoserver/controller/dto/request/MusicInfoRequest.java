@@ -15,4 +15,6 @@ public class MusicInfoRequest {
     private int startAt;
 
     private Hint hint;
+
+    private String genre;
 }

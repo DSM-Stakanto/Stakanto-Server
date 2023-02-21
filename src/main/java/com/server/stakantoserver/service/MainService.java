@@ -64,6 +64,7 @@ public class MainService {
                         .code(request.getCode())
                         .hint(request.getHint())
                         .name(request.getName())
+                        .genre(request.getGenre())
                         .start_at(request.getStartAt())
                 .build());
     }
