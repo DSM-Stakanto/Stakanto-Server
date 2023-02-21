@@ -2,11 +2,11 @@ package com.server.stakantoserver.controller;
 
 import com.server.stakantoserver.controller.dto.request.LogRequest;
 import com.server.stakantoserver.controller.dto.request.MusicInfoRequest;
+import com.server.stakantoserver.controller.dto.response.RecentlyLogResponse;
 import com.server.stakantoserver.controller.dto.response.findRank.TopRankResponse;
 import com.server.stakantoserver.entity.Music;
 import com.server.stakantoserver.service.MainService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,5 +39,10 @@ public class MainController {
     @PostMapping("/log")
     public void recordActivity(@RequestBody LogRequest request) {
         mainService.recordLog(request);
+    }
+
+    @GetMapping("/log/{genre}")
+    public RecentlyLogResponse recentlyLog(@PathVariable String genre) {
+        return mainService.recentlyLog(genre);
     }
 }
