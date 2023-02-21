@@ -1,5 +1,6 @@
 package com.server.stakantoserver.controller;
 
+import com.server.stakantoserver.controller.dto.request.LogRequest;
 import com.server.stakantoserver.controller.dto.request.MusicInfoRequest;
 import com.server.stakantoserver.controller.dto.response.findRank.TopRankResponse;
 import com.server.stakantoserver.entity.Music;
@@ -33,5 +34,10 @@ public class MainController {
     @GetMapping("/music/{genre}")
     public List<Music> returnMusic(@PathVariable String genre) {
         return mainService.returnMusicList(genre);
+    }
+
+    @PostMapping("/log")
+    public void recordActivity(@RequestBody LogRequest request) {
+        mainService.recordLog(request);
     }
 }

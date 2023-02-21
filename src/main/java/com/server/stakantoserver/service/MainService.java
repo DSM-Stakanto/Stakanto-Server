@@ -1,16 +1,20 @@
 package com.server.stakantoserver.service;
 
+import com.server.stakantoserver.controller.dto.request.LogRequest;
 import com.server.stakantoserver.controller.dto.request.MusicInfoRequest;
 import com.server.stakantoserver.controller.dto.response.findRank.Genre;
 import com.server.stakantoserver.controller.dto.response.findRank.TopRankResponse;
+import com.server.stakantoserver.entity.Log;
 import com.server.stakantoserver.entity.Music;
 import com.server.stakantoserver.entity.User;
 import com.server.stakantoserver.repository.HintRepository;
+import com.server.stakantoserver.repository.LogRepository;
 import com.server.stakantoserver.repository.MusicRepository;
 import com.server.stakantoserver.repository.UserRepository;
+import com.server.stakantoserver.security.details.UserDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +31,8 @@ public class MainService {
     private final MusicRepository musicRepository;
 
     private final HintRepository hintRepository;
+
+    private final LogRepository logRepository;
 
     public TopRankResponse findRank() {
         List<Genre> list = new ArrayList<>();
@@ -88,5 +94,34 @@ public class MainService {
             list = list.stream().filter(l->!rm.contains(l)).collect(Collectors.toList());
         }
         return result;
+    }
+
+    public void recordLog(LogRequest request) {
+        UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        switch (request.getGenre()) {
+            case "kPop":
+                if (request.getPoint() > details.getUser().getKPop()) userRepository
+                        .save(details.getUser().updateScore(request.getGenre(), request.getPoint()));
+                break;
+            case "pop":
+                if (request.getPoint() > details.getUser().getPop()) userRepository
+                        .save(details.getUser().updateScore(request.getGenre(), request.getPoint()));
+                break;
+            case "jPop":
+                if (request.getPoint() > details.getUser().getJPop()) userRepository
+                        .save(details.getUser().updateScore(request.getGenre(), request.getPoint()));
+                break;
+            case "game":
+                if (request.getPoint() > details.getUser().getGame()) userRepository
+                        .save(details.getUser().updateScore(request.getGenre(), request.getPoint()));
+                break;
+            default:
+                break;
+        }
+        logRepository.save(Log.builder()
+                        .genre(request.getGenre())
+                        .user(details.getUser())
+                        .point(request.getPoint())
+                .build());
     }
 }
