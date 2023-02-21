@@ -2,6 +2,7 @@ package com.server.stakantoserver.service;
 
 import com.server.stakantoserver.controller.dto.request.LogRequest;
 import com.server.stakantoserver.controller.dto.request.MusicInfoRequest;
+import com.server.stakantoserver.controller.dto.response.RecentlyLogResponse;
 import com.server.stakantoserver.controller.dto.response.findRank.Genre;
 import com.server.stakantoserver.controller.dto.response.findRank.TopRankResponse;
 import com.server.stakantoserver.entity.Log;
@@ -123,5 +124,21 @@ public class MainService {
                         .user(details.getUser())
                         .point(request.getPoint())
                 .build());
+    }
+
+    public RecentlyLogResponse recentlyLog(String genre) {
+        UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Log> list = logRepository.findByUserAndGenreOrderByCreatedAtDesc(details.getUser(), genre);
+        List<Integer> result = new ArrayList<>();
+        if (list.size() > 4) {
+            for (int i = 0; i < 5; i++) {
+                result.add(list.get(i).getPoint());
+            }
+        }
+        else for (Log log : list) result.add(log.getPoint());
+        return RecentlyLogResponse.builder()
+                .genre(genre)
+                .scores(result)
+                .build();
     }
 }
