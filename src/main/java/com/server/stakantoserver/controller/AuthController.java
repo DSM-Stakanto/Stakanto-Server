@@ -5,6 +5,7 @@ import com.server.stakantoserver.controller.dto.request.SignUpRequest;
 import com.server.stakantoserver.controller.dto.response.TokenResponse;
 import com.server.stakantoserver.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,5 +26,10 @@ public class AuthController {
     @PostMapping("/login")
     public TokenResponse signIn(@RequestBody SignInRequest request) {
         return authService.signIn(request);
+    }
+
+    @GetMapping("/cykop")
+    public String test() {
+        return "Test";
     }
 }
