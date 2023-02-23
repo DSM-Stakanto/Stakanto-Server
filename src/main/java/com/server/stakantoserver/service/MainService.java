@@ -3,6 +3,7 @@ package com.server.stakantoserver.service;
 import com.server.stakantoserver.controller.dto.request.LogRequest;
 import com.server.stakantoserver.controller.dto.request.MusicInfoRequest;
 import com.server.stakantoserver.controller.dto.response.RecentlyLogResponse;
+import com.server.stakantoserver.controller.dto.response.UserResponse;
 import com.server.stakantoserver.controller.dto.response.findRank.Genre;
 import com.server.stakantoserver.controller.dto.response.findRank.TopRankResponse;
 import com.server.stakantoserver.entity.Log;
@@ -139,6 +140,15 @@ public class MainService {
         return RecentlyLogResponse.builder()
                 .genre(genre)
                 .scores(result)
+                .build();
+    }
+
+    public UserResponse userResponse() {
+        UserDetails details =  (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = details.getUser();
+        return UserResponse.builder()
+                .image(user.getImage())
+                .name(user.getName())
                 .build();
     }
 }

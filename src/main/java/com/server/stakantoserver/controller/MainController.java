@@ -3,6 +3,7 @@ package com.server.stakantoserver.controller;
 import com.server.stakantoserver.controller.dto.request.LogRequest;
 import com.server.stakantoserver.controller.dto.request.MusicInfoRequest;
 import com.server.stakantoserver.controller.dto.response.RecentlyLogResponse;
+import com.server.stakantoserver.controller.dto.response.UserResponse;
 import com.server.stakantoserver.controller.dto.response.findRank.TopRankResponse;
 import com.server.stakantoserver.entity.Music;
 import com.server.stakantoserver.service.MainService;
@@ -44,5 +45,10 @@ public class MainController {
     @GetMapping("/log/{genre}")
     public RecentlyLogResponse recentlyLog(@PathVariable String genre) {
         return mainService.recentlyLog(genre);
+    }
+
+    @GetMapping("/user")
+    public UserResponse userResponse() {
+        return mainService.userResponse();
     }
 }
