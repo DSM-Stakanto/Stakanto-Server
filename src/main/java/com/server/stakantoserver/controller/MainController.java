@@ -27,7 +27,7 @@ public class MainController {
         return mainService.findRank();
     }
 
-    @PostMapping("/music")
+    @PostMapping("/admin/music")
     public void recordMusicInfo(@RequestBody MusicInfoRequest request) {
         mainService.recordMusicInfo(request);
     }
