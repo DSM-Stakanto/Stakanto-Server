@@ -32,4 +32,9 @@ public class Refresh {
         this.user = user;
         this.refreshToken = refreshToken;
     }
+
+    public Refresh updateToken(String token) {
+        this.refreshToken = token;
+        return this;
+    }
 }

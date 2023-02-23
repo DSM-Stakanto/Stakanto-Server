@@ -59,9 +59,14 @@ public class TokenProvider {
         String token = generateToken(accountId, refreshExp);
         User user = userRepository.findByAccountID(accountId)
                         .orElseThrow(()-> new RuntimeException("account doesn't find in database"));
-        refreshRepository.save(Refresh.builder()
-                        .refreshToken(token)
+        if(refreshRepository.findByUser(user).isPresent()) {
+            refreshRepository.save(
+                    refreshRepository.findByUser(user).get().updateToken(token)
+            );
+        }
+        else refreshRepository.save(Refresh.builder()
                         .user(user)
+                        .refreshToken(token)
                 .build());
         return token;
     }
