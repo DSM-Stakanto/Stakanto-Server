@@ -43,24 +43,28 @@ public class MainService {
                         .genre("kPop")
                         .name(user.getName())
                         .score(user.getKPop())
+                        .image(user.getImage())
                 .build());
         user = userRepository.findAll(Sort.by(Sort.Direction.DESC, "jPop")).get(0);
         list.add(Genre.builder()
                         .genre("jPop")
                         .name(user.getName())
                         .score(user.getJPop())
+                        .image(user.getImage())
                 .build());
         user = userRepository.findAll(Sort.by(Sort.Direction.DESC, "pop")).get(0);
         list.add(Genre.builder()
                         .genre("pop")
                         .name(user.getName())
                         .score(user.getPop())
+                        .image(user.getImage())
                 .build());
         user = userRepository.findAll(Sort.by(Sort.Direction.DESC, "game")).get(0);
         list.add(Genre.builder()
                         .genre("game")
                         .name(user.getName())
                         .score(user.getGame())
+                        .image(user.getImage())
                 .build());
         return new TopRankResponse(list);
     }
