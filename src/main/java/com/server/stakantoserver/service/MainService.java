@@ -39,13 +39,13 @@ public class MainService {
         List<Genre> list = new ArrayList<>();
         User user = userRepository.findAll(Sort.by(Sort.Direction.DESC, "kPop")).get(0);
         list.add(Genre.builder()
-                        .genre("k-pop")
+                        .genre("kPop")
                         .name(user.getName())
                         .score(user.getKPop())
                 .build());
         user = userRepository.findAll(Sort.by(Sort.Direction.DESC, "jPop")).get(0);
         list.add(Genre.builder()
-                        .genre("j-pop")
+                        .genre("jPop")
                         .name(user.getName())
                         .score(user.getJPop())
                 .build());

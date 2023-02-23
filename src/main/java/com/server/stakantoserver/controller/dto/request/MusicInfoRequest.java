@@ -16,5 +16,5 @@ public class MusicInfoRequest {
 
     private Hint hint;
 
-    private String genre;
+    private Genre genre;
 }

@@ -6,13 +6,13 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
-    url: ${URL}
+    url: jdbc:mysql://{URL}/stakanto
     username: ${USERNAME}
     password: ${PASSWORD}
 jwt:
   secret: ${SECRET}
   expired:
-    access: ${ACCESS_TOKEN_EXPIRED}
-    refresh: ${REFRESH_TOKEN_EXPIRED}
+    access: 1800
+    refresh: 43200
 server:
-  port: 8081
+  port: 8080
