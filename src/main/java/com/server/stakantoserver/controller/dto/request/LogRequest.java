@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class LogRequest {
-    private String genre;
+    private Genre genre;
     private int point;
 }

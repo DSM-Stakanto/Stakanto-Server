@@ -84,7 +84,7 @@ public class MainService {
                 .build());
     }
 
-    public List<Music> returnMusicList(Genre genre) {
+    public List<Music> returnMusicList(com.server.stakantoserver.controller.dto.request.Genre genre) {
         List<Music> list = musicRepository.findByGenre(genre);
         List<Music> result = new ArrayList<>();
         Random rand = new Random();
@@ -105,19 +105,19 @@ public class MainService {
     public void recordLog(LogRequest request) {
         UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         switch (request.getGenre()) {
-            case "kPop":
+            case kPop:
                 if (request.getPoint() > details.getUser().getKPop()) userRepository
                         .save(details.getUser().updateScore(request.getGenre(), request.getPoint()));
                 break;
-            case "pop":
+            case pop:
                 if (request.getPoint() > details.getUser().getPop()) userRepository
                         .save(details.getUser().updateScore(request.getGenre(), request.getPoint()));
                 break;
-            case "jPop":
+            case jPop:
                 if (request.getPoint() > details.getUser().getJPop()) userRepository
                         .save(details.getUser().updateScore(request.getGenre(), request.getPoint()));
                 break;
-            case "game":
+            case game:
                 if (request.getPoint() > details.getUser().getGame()) userRepository
                         .save(details.getUser().updateScore(request.getGenre(), request.getPoint()));
                 break;
@@ -131,7 +131,7 @@ public class MainService {
                 .build());
     }
 
-    public RecentlyLogResponse recentlyLog(String genre) {
+    public RecentlyLogResponse recentlyLog(com.server.stakantoserver.controller.dto.request.Genre genre) {
         UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Log> list = logRepository.findByUserAndGenreOrderByCreatedAtDesc(details.getUser(), genre);
         List<Integer> result = new ArrayList<>();

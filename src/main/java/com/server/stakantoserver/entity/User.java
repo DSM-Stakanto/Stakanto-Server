@@ -1,5 +1,6 @@
 package com.server.stakantoserver.entity;
 
+import com.server.stakantoserver.controller.dto.request.Genre;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import static com.server.stakantoserver.controller.dto.request.Genre.*;
+import static com.server.stakantoserver.controller.dto.request.Genre.kPop;
 
 @Entity
 @Getter
@@ -38,18 +42,18 @@ public class User {
         this.pop = 0;
     }
 
-    public User updateScore(String kind, int score) {
+    public User updateScore(Genre kind, int score) {
         switch (kind) {
-            case "kPop":
+            case kPop:
                 this.kPop = score;
                 break;
-            case "pop":
+            case pop:
                 this.pop = score;
                 break;
-            case "jPop":
+            case jPop:
                 this.jPop = score;
                 break;
-            case "game":
+            case game:
                 this.game = score;
                 break;
         }

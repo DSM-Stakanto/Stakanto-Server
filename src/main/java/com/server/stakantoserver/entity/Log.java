@@ -1,5 +1,6 @@
 package com.server.stakantoserver.entity;
 
+import com.server.stakantoserver.controller.dto.request.Genre;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,12 +20,13 @@ public class Log {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private String genre;
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
     private int point;
     private LocalDateTime createdAt;
 
     @Builder
-    public Log(User user, String genre, int point) {
+    public Log(User user, Genre genre, int point) {
         this.user = user;
         this.point = point;
         this.genre = genre;

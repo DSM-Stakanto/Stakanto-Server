@@ -1,6 +1,6 @@
 package com.server.stakantoserver.repository;
 
-import com.server.stakantoserver.controller.dto.response.findRank.Genre;
+import com.server.stakantoserver.controller.dto.request.Genre;
 import com.server.stakantoserver.entity.Music;
 import org.springframework.data.repository.CrudRepository;
 
