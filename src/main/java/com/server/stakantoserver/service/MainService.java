@@ -84,13 +84,13 @@ public class MainService {
                 .build());
     }
 
-    public List<Music> returnMusicList(String genre) {
+    public List<Music> returnMusicList(Genre genre) {
         List<Music> list = musicRepository.findByGenre(genre);
         List<Music> result = new ArrayList<>();
         Random rand = new Random();
         while (true) {
             List<Music> rm = new ArrayList<>();
-            if (result.size() == 4) break; // result.size() == 20
+            if (result.size() == 20) break; // result.size() == 20
             for (Music music : list) {
                 if (rand.nextBoolean()) {
                     result.add(music);
