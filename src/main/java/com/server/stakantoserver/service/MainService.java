@@ -87,17 +87,11 @@ public class MainService {
     public List<Music> returnMusicList(com.server.stakantoserver.controller.dto.request.Genre genre) {
         List<Music> list = musicRepository.findByGenre(genre);
         List<Music> result = new ArrayList<>();
-        Random rand = new Random();
-        while (true) {
-            List<Music> rm = new ArrayList<>();
-            if (result.size() == 20) break; // result.size() == 20
-            for (Music music : list) {
-                if (rand.nextBoolean()) {
-                    result.add(music);
-                    rm.add(music);
-                }
-            }
-            list = list.stream().filter(l->!rm.contains(l)).collect(Collectors.toList());
+        for (int i = 0; i < 20; i++) {
+            int a = (int)(Math.random() * (list.size() - 1));
+            Music m = list.get(a);
+            list.remove(m);
+            result.add(m);
         }
         return result;
     }
